@@ -1400,7 +1400,7 @@ XHRURLHandler = (function() {
   XHRURLHandler.xhr = function() {
     var xhr;
     xhr = new window.XMLHttpRequest();
-    
+
     //check is IE9
     if((/MSIE 9.0/).test(navigator.userAgent)){
       return xhr;
