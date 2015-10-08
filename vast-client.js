@@ -790,7 +790,11 @@ VASTParser = (function() {
     _ref = adElement.childNodes;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       adTypeElement = _ref[_i];
-      adTypeElement.id = adElement.getAttribute("id");
+
+      if(typeof adTypeElement.id != 'undefined') {
+        adTypeElement.id = adElement.getAttribute("id");
+      }
+
       if (adTypeElement.nodeName === "Wrapper") {
         return this.parseWrapperElement(adTypeElement);
       } else if (adTypeElement.nodeName === "InLine") {
@@ -1412,12 +1416,19 @@ XHRURLHandler = (function() {
       xhr.open('GET', url);
       xhr.timeout = options.timeout || 0;
       xhr.withCredentials = options.withCredentials || false;
-      xhr.send();
-      return xhr.onreadystatechange = function() {
+
+      xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
+          //console.dir(xhr);
+          //console.log(cb);
           return cb(null, xhr.responseXML);
         }
       };
+      setTimeout(function() {
+        xhr.send();
+      }, 0);
+
+      return xhr.onreadystatechange();
     } catch (_error) {
       return cb();
     }
