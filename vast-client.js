@@ -1400,8 +1400,14 @@ XHRURLHandler = (function() {
   XHRURLHandler.xhr = function() {
     var xhr;
     xhr = new window.XMLHttpRequest();
-    if ('withCredentials' in xhr) {
+    
+    //check is IE9
+    if((/MSIE 9.0/).test(navigator.userAgent)){
       return xhr;
+    } else {
+      if ('withCredentials' in xhr) {
+        return xhr;
+      }
     }
   };
 
